@@ -1,6 +1,6 @@
 //Store all dem' numbas. 
 var firstNum;
-var secondNum;
+var nextNum;
 var finalNum;
 var screenNum = [];
 var mathThing;
@@ -27,36 +27,42 @@ $(document).ready(function() {
   });
   //Math operator press
   $(".operator").not("#cancel").not("#calc").click(function(){
-		firstNum = combineNum(screenNum);
+		if (firstNum){
+			nextNum = combineNum(screenNum);			
+		}
+		else { 
+			firstNum = combineNum(screenNum);
+		}	
 		mathThing = this.innerHTML;	
+		$('#screen').html(mathThing);
 		screenNum = [];
   });		
   // "=" Operator press
  	$("#calc").click(function(){
-		secondNum = combineNum(screenNum);
+		nextNum = combineNum(screenNum);
 		if (mathThing === "+"){
-			finalNum = firstNum += secondNum;
+			finalNum = firstNum + nextNum;
 		}
 		else if (mathThing === "-"){
-			finalNum = firstNum -= secondNum;
+			finalNum = firstNum - nextNum;
 		}
 		else if (mathThing === "x"){
-			finalNum = firstNum *= secondNum;
+			finalNum = firstNum * nextNum;
 		}
 		else {
-			finalNum = firstNum /= secondNum;
+			finalNum = firstNum / nextNum;
 		}
 		screenNum = finalNum;
 		$("#screen").html(screenNum); 
 		mathThing = "";
 		firstNum = finalNum;
-		secondNum = 0;
+		nextNum = 0;
 		screenNum = [];
   });
   //The cancel button
   $("#cancel").click(function(){
   	firstNum = 0; 
-  	secondNum = 0; 
+  	nextNum = 0; 
   	finalNum = 0;
   	screenNum = [];
   	mathThing = "";
